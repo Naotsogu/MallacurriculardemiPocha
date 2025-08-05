@@ -1,28 +1,83 @@
-// Datos de los cursos por semestre
+// Cursos originales que me diste para tu novia (Pocha)
 const cursosPorSemestre = {
-  "1": ["Matemática Básica", "Química General I", "Biología", "Lenguaje", "Desarrollo Personal", "Taller de introducción a la vida universitaria"],
-  "2": ["Matemática I", "Química General II", "Biología Celular", "Metodología del Estudio", "Técnicas de Estudio", "Taller de Creatividad"],
-  "3": ["Matemática II", "Química Orgánica I", "Física General", "Bioquímica I", "Ecología", "Estadística I"],
-  "4": ["Matemática III", "Química Orgánica II", "Física Moderna", "Bioquímica II", "Fisiología", "Estadística II"],
-  "5": ["Química Analítica I", "Microbiología", "Toxicología", "Genética", "Química Física", "Farmacognosia"],
-  "6": ["Química Analítica II", "Inmunología", "Biotecnología", "Parasitología", "Fisiopatología", "Química Farmacéutica I"],
-  "7": ["Química Farmacéutica II", "Farmacología I", "Farmacotecnia I", "Análisis Instrumental I", "Nutrición", "Biofarmacia y Farmacocinética"],
-  "8": ["Farmacología II", "Farmacotecnia II", "Análisis Instrumental II", "Toxicología Analítica", "Cosmetología", "Evaluación de Tecnología Sanitaria"],
-  "9": ["Farmacia Clínica I", "Tecnología Farmacéutica I", "Legislación Farmacéutica", "Farmacoeconomía", "Atención Farmacéutica", "Gestión y Administración Farmacéutica"],
-  "10": ["Farmacia Clínica II", "Tecnología Farmacéutica II", "Farmacovigilancia", "Educación para la Salud", "Bioética", "Buenas Prácticas de Manufactura"],
-  "11": ["Internado I"],
-  "12": ["Internado II"],
-  "13": ["Tesis I", "Electivo I"],
-  "14": ["Tesis II", "Electivo II"]
+  "1": [
+    "Inglés I", "Procesos celulares y moleculares I",
+    "Estructura y función del cuerpo humano", "Prácticas médicas I", "Desarrollo humano y social"
+  ],
+  "2": [
+    "Estilo de vida, salud y medio ambiente", "Inglés II",
+    "Procesos celulares y moleculares II",
+    "SO I Circulación, respiración, eliminación y equilibrio ácido básico",
+    "Prácticas Médicas II"
+  ],
+  "3": [
+    "Bases de la terapéutica farmacológica",
+    "Mecanismos de agresión y defensa I",
+    "SO II Digestión, absorción, reproducción y control endocrino",
+    "Prácticas Médicas III"
+  ],
+  "4": [
+    "Salud pública y sistemas de salud",
+    "Mecanismos de agresión y defensa II",
+    "SO III Soporte, movimiento y control neural",
+    "Prácticas Médicas IV"
+  ],
+  "5": [
+    "Prevención y promoción de la salud",
+    "Mecanismos de agresión y defensa III",
+    "Neurociencias y comportamiento",
+    "Salud del niño y del adolescente"
+  ],
+  "6": [
+    "Ciencia y descubrimiento", "Salud comunitaria",
+    "Salud del adulto", "Salud de la mujer y el neonato"
+  ],
+  "7": [
+    "Tecnologías biomédicas", "Salud del adulto mayor",
+    "Salud mental", "Atención integral de la salud"
+  ],
+  "8": [
+    "Cuidados paliativos y del fin de la vida",
+    "Medicina interna I", "Pediatría I", "Ginecología y obstetricia I"
+  ],
+  "9": [
+    "Medicina interna II", "Pediatría II",
+    "Ginecología y obstetricia II", "Electivo I"
+  ],
+  "10": [
+    "Medicina de emergencias y cuidados críticos",
+    "Cirugía general", "Neurología y psiquiatría", "Electivo II"
+  ],
+  "11": [
+    "Cirugía de especialidades", "Tendencias globales en salud",
+    "Proyectos de intervención en salud", "Electivo de especialidad"
+  ],
+  "12": [
+    "Externado Medicina Interna", "Externado Pediatría",
+    "Externado Cirugía", "Externado Gineco Obstetricia"
+  ],
+  "13": [
+    "Internado Medicina Interna", "Internado Pediatría",
+    "Seminarios de integración clínica I", "Seminario de Investigación"
+  ],
+  "14": [
+    "Internado Cirugía", "Internado Gineco Obstetricia",
+    "Seminarios de integración clínica II", "Trabajo de investigación"
+  ]
 };
 
-// Función para crear la malla curricular
+// Crear malla curricular
 function crearMalla() {
   const contenedor = document.getElementById("malla");
 
   Object.keys(cursosPorSemestre).forEach((semestreNum) => {
     const semestre = document.createElement("div");
     semestre.classList.add("semestre");
+
+    // Centrar semestres 13 y 14
+    if (semestreNum === "13" || semestreNum === "14") {
+      semestre.classList.add("centrado");
+    }
 
     const titulo = document.createElement("h2");
     titulo.textContent = `Semestre ${semestreNum}`;
@@ -40,55 +95,10 @@ function crearMalla() {
   });
 }
 
-// Función para manejar los clics y el estado de los cursos
+// Marcar y guardar estado
 function iniciarInteracciones() {
   const cursos = document.querySelectorAll(".curso");
 
   cursos.forEach((curso) => {
     const cursoId = curso.dataset.id;
-
-    // Cargar estado desde localStorage
-    const isChecked = localStorage.getItem(cursoId) === "true";
-    curso.classList.toggle("completado", isChecked);
-
-    curso.addEventListener("click", () => {
-      curso.classList.toggle("completado");
-      const checked = curso.classList.contains("completado");
-      localStorage.setItem(cursoId, checked);
-
-      verificarSemestreCompletado(curso.closest(".semestre"));
-    });
-
-    // Verificar al cargar
-    verificarSemestreCompletado(curso.closest(".semestre"));
-  });
-}
-
-// Agregar estrella si todo el semestre está aprobado
-function verificarSemestreCompletado(semestre) {
-  const cursos = semestre.querySelectorAll(".curso");
-  const todosCompletados = Array.from(cursos).every((c) =>
-    c.classList.contains("completado")
-  );
-
-  let estrella = semestre.querySelector(".estrella");
-
-  if (todosCompletados) {
-    if (!estrella) {
-      estrella = document.createElement("span");
-      estrella.classList.add("estrella");
-      estrella.textContent = "⭐";
-      semestre.appendChild(estrella);
-    }
-  } else {
-    if (estrella) {
-      estrella.remove();
-    }
-  }
-}
-
-// Ejecutar al cargar
-document.addEventListener("DOMContentLoaded", () => {
-  crearMalla();
-  iniciarInteracciones();
-});
+    const isChecked = localStorage.getIte
