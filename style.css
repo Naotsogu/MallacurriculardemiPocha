@@ -1,3 +1,34 @@
+body {
+  font-family: sans-serif;
+  background: #f7f7f7;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+#malla {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.curso {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.curso.aprobado {
+  background: #d4edda;
+  border-color: #28a745;
+}
 .titulo-ciclo {
   margin-top: 2rem;
   font-size: 1.5rem;
