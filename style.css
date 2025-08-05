@@ -73,3 +73,6 @@ h1 {
 .semestre li:last-child {
   border-bottom: none;
 }
+.semestre.centrado {
+  margin: 0 auto;
+}
