@@ -1,67 +1,83 @@
+/* Fondo general rosado claro */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fff0f5;
+  background-color: #ffe4f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
 }
 
-header {
-  background-color: #ff69b4;
-  color: white;
-  padding: 1rem;
+h1 {
   text-align: center;
-  font-size: 1.8rem;
-  font-weight: bold;
+  padding: 20px;
+  color: #d63384;
 }
 
-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.semester {
-  background-color: white;
-  border: 2px solid #ff69b4;
+.mensaje {
+  text-align: center;
+  background-color: #f8c2d5;
+  padding: 10px 20px;
+  font-size: 1.1em;
   border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 20px;
+  max-width: 700px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.semester h2 {
-  color: #ff69b4;
+#malla {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.semestre {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.semestre h2 {
   margin-top: 0;
-  font-size: 1.2rem;
+  color: #d63384;
+  font-size: 1.3em;
   text-align: center;
 }
 
-.course {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
+.semestre.centrado {
+  width: 100%;
+  max-width: 640px;
 }
 
-.course input[type="checkbox"] {
-  margin-right: 0.5rem;
+.curso {
+  background-color: #fbe7ef;
+  margin: 5px 0;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.semester.completed {
-  border-color: gold;
-  position: relative;
+.curso:hover {
+  background-color: #f2cadd;
+  transform: scale(1.02);
 }
 
-.semester.completed::after {
-  content: '⭐';
+.curso.completado {
+  background-color: #ffd0e8;
+  text-decoration: line-through;
+  color: #888;
+}
+
+.estrella {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 1.5rem;
-}
-
-@media (max-width: 600px) {
-  header {
-    font-size: 1.4rem;
-  }
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  color: #f9a826;
 }
